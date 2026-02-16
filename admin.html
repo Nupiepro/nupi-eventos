@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NUPI Ops | Command Center</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --roxo: #0f0732; --laranja: #f85900; --branco: #ffffff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: var(--roxo); color: white; padding-bottom: 50px; }
+        .header { position: sticky; top: 0; z-index: 100; background: rgba(15, 7, 50, 0.95); backdrop-filter: blur(10px); padding: 15px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; }
+        .logo-area { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.1rem; }
+        .logo-img { width: 35px; border-radius: 50%; border: 2px solid var(--laranja); }
+        .container { max-width: 1200px; margin: 20px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr; gap: 20px; }
+        @media(min-width: 900px) { .container { grid-template-columns: 350px 1fr; } }
+        .card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 25px; }
+        .kpi-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        .kpi-box { background: var(--laranja); padding: 15px; border-radius: 15px; text-align: center; }
+        .kpi-box strong { display: block; font-size: 2rem; line-height: 1; margin-top: 5px; }
+        label { display: block; font-size: 0.8rem; font-weight: 700; margin-bottom: 5px; color: rgba(255,255,255,0.7); }
+        input, select { width: 100%; padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.2); color: white; border-radius: 10px; margin-bottom: 15px; }
+        .btn-action { width: 100%; padding: 15px; border-radius: 12px; border: none; font-weight: 800; cursor: pointer; transition: 0.2s; }
+        .btn-save { background: var(--laranja); color: white; }
+        .btn-copy { background: #3b82f6; color: white; margin-bottom: 10px; }
+        .search-box { width: 100%; padding: 12px; background: white; color: var(--roxo); border-radius: 10px; border: none; margin-bottom: 15px; font-weight: 600; }
+        .table-wrapper { overflow-x: auto; max-height: 600px; }
+        table { width: 100%; border-collapse: collapse; min-width: 600px; }
+        th { text-align: left; padding: 12px; font-size: 0.75rem; color: rgba(255,255,255,0.5); border-bottom: 1px solid rgba(255,255,255,0.1); position: sticky; top: 0; background: #0f0732; }
+        td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem; vertical-align: middle; }
+        .tag { padding: 4px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 800; display: inline-block; }
+        .tag-ufpi { background: rgba(74, 222, 128, 0.2); color: #4ade80; border: 1px solid rgba(74, 222, 128, 0.4); }
+        .tag-outra { background: rgba(255,255,255,0.1); color: white; }
+        .btn-zap { background: rgba(37, 211, 102, 0.15); color: #25D366; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 8px; cursor: pointer; }
+        @media(max-width: 600px) {
+            thead { display: none; }
+            tr { display: block; background: rgba(255,255,255,0.03); margin-bottom: 10px; border-radius: 12px; padding: 15px; border: 1px solid rgba(255,255,255,0.05); }
+            td { display: block; padding: 5px 0; border: none; }
+        }
+    </style>
+</head>
+<body>
+    <div id="security" style="height:100vh; display:flex; align-items:center; justify-content:center;">🔒 Acesso Restrito</div>
+    <div id="app" style="display:none;">
+        <div class="header">
+            <div class="logo-area"><img src="https://i.ibb.co/7hcph2F/download.jpg" class="logo-img"><span>NUPI OPS</span></div>
+            <button onclick="carregar()" style="background:transparent; border:none; color:white; font-size:1.2rem;"><i class="fa-solid fa-rotate-right"></i></button>
+        </div>
+        <div class="container">
+            <div class="sidebar">
+                <div class="kpi-row">
+                    <div class="kpi-box"><small>Inscritos</small><strong id="kpi-total">--</strong></div>
+                    <div class="kpi-box" style="background:#3b82f6;"><small>Vagas Rest.</small><strong id="kpi-restantes">--</strong></div>
+                </div>
+                <div class="card">
+                    <h3>⚙️ Configuração</h3><br>
+                    <label>Evento</label><input type="text" id="ev-nome">
+                    <label>Limite Vagas</label><input type="number" id="ev-vagas">
+                    <label>Status</label>
+                    <select id="ev-status"><option value="ABERTO">🟢 ABERTO</option><option value="FECHADO">🔴 FECHADO</option></select>
+                    <label>Cor</label><input type="color" id="ev-cor" style="height:40px; cursor:pointer;">
+                    <button class="btn-action btn-copy" onclick="copiarEmails()"><i class="fa-regular fa-copy"></i> Copiar E-mails</button>
+                    <button class="btn-action btn-save" onclick="salvar()">ATUALIZAR EVENTO</button>
+                </div>
+            </div>
+            <div class="main-content">
+                <input type="text" class="search-box" id="busca" placeholder="🔍 Buscar aluno..." onkeyup="filtrar()">
+                <div class="card table-wrapper">
+                    <table id="tabela-alunos">
+                        <thead><tr><th>NOME</th><th>CURSO/INST.</th><th>PERÍODO</th><th>AÇÃO</th></tr></thead>
+                        <tbody id="lista-corpo"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const API = "https://script.google.com/macros/s/AKfycbwdfIzySyFPoVtMhYhEqJMuZeciKj-BzCPXTsqdVpUUz_4FmSx2rlTzK_A0W4p7WkWTsA/exec";
+        window.onload = () => {
+            const params = new URLSearchParams(window.location.search);
+            if(params.get("token") === "nupi2026") { 
+                document.getElementById('security').style.display = 'none';
+                document.getElementById('app').style.display = 'block';
+                carregar();
+            }
+        };
+        let cache = [];
+        async function carregar() {
+            try {
+                const r = await fetch(API + "?action=get_admin");
+                const d = await r.json();
+                cache = d.lista;
+                document.getElementById('kpi-total').innerText = d.total;
+                document.getElementById('kpi-restantes').innerText = Math.max(0, d.vagas - d.total);
+                document.getElementById('ev-nome').value = d.evento;
+                document.getElementById('ev-vagas').value = d.vagas;
+                document.getElementById('ev-status').value = d.status;
+                document.getElementById('ev-cor').value = d.cor;
+                render(cache);
+            } catch(e){ console.log(e); }
+        }
+        function render(l) {
+            document.getElementById('lista-corpo').innerHTML = l.reverse().map(i => `
+                <tr>
+                    <td>${i.nome}</td>
+                    <td><span class="tag ${i.inst=='UFPI'?'tag-ufpi':'tag-outra'}">${i.inst}</span><br><small>${i.curso}</small></td>
+                    <td><span class="tag tag-outra">${i.periodo}</span></td>
+                    <td><div class="btn-zap" onclick="window.open('https://wa.me/?text=Olá ${i.nome.split(' ')[0]}! Tudo bem? Sobre o evento ${document.getElementById('ev-nome').value}...')"><i class="fa-brands fa-whatsapp"></i></div></td>
+                </tr>`).join('');
+        }
+        function filtrar() {
+            const t = document.getElementById('busca').value.toLowerCase();
+            render(cache.filter(i => i.nome.toLowerCase().includes(t) || i.curso.toLowerCase().includes(t) || i.periodo.toLowerCase().includes(t)));
+        }
+        function copiarEmails() {
+            navigator.clipboard.writeText(cache.map(i => i.email).join(', '));
+            alert("✅ E-mails copiados!");
+        }
+        async function salvar() {
+            const btn = document.querySelector('.btn-save');
+            btn.innerText = "Salvando..."; btn.disabled = true;
+            const params = new URLSearchParams();
+            params.append('action', 'update_config');
+            params.append('nome', document.getElementById('ev-nome').value);
+            params.append('vagas', document.getElementById('ev-vagas').value);
+            params.append('status', document.getElementById('ev-status').value);
+            params.append('cor', document.getElementById('ev-cor').value);
+            await fetch(API, {method:'POST', body: params});
+            alert("Sistema Atualizado!"); btn.innerText = "ATUALIZAR EVENTO"; btn.disabled = false; carregar();
+        }
+    </script>
+</body>
+</html>
+
