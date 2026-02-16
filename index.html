@@ -22,7 +22,7 @@
 <div class="card" id="tela-fechado" style="display:none;text-align:center;padding:60px 40px">
     <i class="fa-solid fa-lock" style="font-size:5rem;color:#cbd5e1;margin-bottom:25px"></i>
     <h2 style="color:var(--main);margin-bottom:15px">Inscrições Encerradas</h2>
-    <p style="color:#64748b;line-height:1.6">As vagas foram preenchidas ou não há evento ativo.<br>Fique ligado em novas novidades no Instagram <strong>@nupiepro</strong> 💙🧡</p>
+    <p style="color:#64748b;line-height:1.6">As vagas foram preenchidas ou não há evento ativo.<br>Fique ligado em novas novidades no Instagram <strong>@nupieepro</strong> 💙🧡</p>
 </div>
 
 <div class="page-footer">NUPIEEPRO 2026 💙🧡</div>
@@ -38,9 +38,9 @@ window.onload=async()=>{
         const r=await fetch(API).then(res=>res.json());
         document.getElementById('loading').style.display='none';
         
-        // LÓGICA DE EVENTO FECHADO OU MANUTENÇÃO (AQUI ESTÁ A MENSAGEM QUE VOCÊ PEDIU)
+        // LÓGICA DE EVENTO FECHADO
         if(r.manutencao || r.status === "FECHADO"){
-            msg('lock','#cbd5e1','Inscrições Encerradas','As vagas foram preenchidas ou não há evento ativo.<br>Fique ligado em novas novidades no Instagram <strong>@nupiepro</strong> 💙🧡');
+            msg('lock','#cbd5e1','Inscrições Encerradas','As vagas foram preenchidas ou não há evento ativo.<br>Fique ligado em novas novidades no Instagram <strong>@nupieepro</strong> 💙🧡');
         } else {
             document.getElementById('card-main').style.display='block';
             document.getElementById('ev-titulo').innerText=r.nome;
@@ -83,7 +83,7 @@ async function enviar(){
 function msg(i,c,t,d){
     document.getElementById('tela-msg').style.display='block';
     document.getElementById('card-main').style.display='none';
-    document.getElementById('tela-fechado').style.display='none'; // Garante que não duplique
+    document.getElementById('tela-fechado').style.display='none'; 
     document.getElementById('icon-msg').className='fa-solid fa-'+i;
     document.getElementById('icon-msg').style.color=c;
     document.getElementById('tit-msg').innerText=t;
