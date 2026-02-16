@@ -1,119 +1,26 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Inscrição NUPIEPRO</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root { --roxo: #0f0732; --laranja: #f85900; --dinamica: #f85900; }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background: var(--roxo); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; background-image: radial-gradient(circle at top right, #1a1245 0%, #0f0732 60%); }
-        .card { background: white; width: 100%; max-width: 480px; border-radius: 32px; box-shadow: 0 25px 80px rgba(0,0,0,0.4); overflow: hidden; position: relative; z-index: 10; }
-        .header { background: var(--roxo); color: white; padding: 45px 30px 30px; text-align: center; border-bottom: 5px solid var(--dinamica); }
-        .logo-nupi { width: 80px; height: 80px; border-radius: 50%; border: 4px solid var(--dinamica); margin-bottom: 15px; background: white; padding: 2px; }
-        form { padding: 30px 30px 50px 30px; }
-        .input-group { margin-bottom: 20px; }
-        label { display: block; font-weight: 700; color: var(--roxo); font-size: 0.85rem; margin-bottom: 8px; margin-left: 5px; }
-        input, select { width: 100%; padding: 16px; border: 2px solid #e2e8f0; border-radius: 16px; font-size: 1rem; outline: none; transition: 0.3s; background: #f8fafc; color: #334155; appearance: none; }
-        input:focus, select:focus { border-color: var(--dinamica); background: white; }
-        .btn-confirm { width: 100%; padding: 18px; background: var(--roxo); color: white; border: none; border-radius: 16px; font-size: 1rem; font-weight: 800; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 25px rgba(15, 7, 50, 0.2); display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .btn-confirm:active { transform: scale(0.98); }
-        #tela-fechado { display: none; text-align: center; padding: 60px 30px; }
-        .icon-closed { font-size: 4rem; color: #cbd5e1; margin-bottom: 20px; }
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 7, 50, 0.9); backdrop-filter: blur(8px); z-index: 100; display: none; align-items: center; justify-content: center; padding: 20px; }
-        .modal-box { background: white; width: 100%; max-width: 380px; padding: 30px; border-radius: 24px; text-align: center; }
-        .data-review { text-align: left; background: #f1f5f9; padding: 15px; border-radius: 12px; margin: 15px 0 25px; font-size: 0.9rem; line-height: 1.6; color: #475569; }
-        .modal-actions { display: flex; gap: 10px; }
-        #toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-150%); background: white; padding: 15px 25px; border-radius: 50px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); font-weight: 800; color: var(--roxo); display: flex; align-items: center; gap: 10px; z-index: 200; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); border-bottom: 3px solid var(--dinamica); white-space: nowrap; }
-        #toast.show { transform: translateX(-50%) translateY(0); }
-        .zap-float { position: fixed; bottom: 20px; right: 20px; z-index: 90; width: 60px; height: 60px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2)); transition: 0.3s; cursor: pointer; }
-        .zap-float:hover { transform: scale(1.1); }
-        .zap-float img { width: 100%; height: 100%; object-fit: contain; }
-    </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Inscrição | Nupieepro</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+:root{--main:#0f0732;--accent:#f85900;--bg:#f4f4f9;--glass:rgba(255,255,255,0.95)}*{box-sizing:border-box;margin:0;padding:0;font-family:'Plus Jakarta Sans',sans-serif}body{background:var(--main);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background-image:radial-gradient(circle at 10% 20%,#2a1b5e 0%,#0f0732 90%)}.card{background:var(--glass);backdrop-filter:blur(20px);width:100%;max-width:500px;border-radius:24px;overflow:hidden;box-shadow:0 25px 80px rgba(0,0,0,0.4);position:relative;z-index:10}.header{background:linear-gradient(135deg,var(--main) 0%,#1a1245 100%);padding:40px 30px;text-align:center;border-bottom:5px solid var(--accent);color:#fff}.header img{width:85px;border-radius:50%;border:3px solid var(--accent);margin-bottom:15px}.header h2{font-size:1.4rem;font-weight:800;line-height:1.2;margin-bottom:5px}.info-box{background:#f1f5f9;padding:25px 30px;border-bottom:1px solid #e2e8f0;font-size:.9rem;color:#334155}.info-item{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-weight:600;color:var(--main)}.desc-text{margin-bottom:15px;padding-bottom:15px;border-bottom:1px solid #cbd5e1;line-height:1.6}form{padding:30px}.field{margin-bottom:20px}label{display:block;font-size:.85rem;font-weight:700;color:var(--main);margin-bottom:8px}input,select,textarea{width:100%;padding:16px;border:2px solid #e2e8f0;border-radius:12px;font-size:1rem;outline:none;transition:.3s;background:#fff}input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 8px 20px rgba(248,89,0,0.15);transform:translateY(-2px)}.btn{width:100%;padding:20px;background:var(--main);color:#fff;border:none;border-radius:14px;font-weight:800;cursor:pointer;transition:.3s;font-size:1.1rem;margin-top:10px}.btn:hover{background:#1a1245}.other-input{display:none;margin-top:10px}#loading{padding:80px 30px;text-align:center;color:#fff;font-weight:600}.spinner{width:50px;height:50px;border:5px solid rgba(255,255,255,0.3);border-top:5px solid var(--accent);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 20px}@keyframes spin{to{transform:rotate(360deg)}}.page-footer{position:fixed;bottom:15px;width:100%;text-align:center;color:#fff;font-size:.75rem;opacity:.5}div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm{background-color:var(--accent)!important}
+</style>
 </head>
 <body>
-    <div id="toast"><i class="fa-solid fa-circle-check" style="color:#10b981"></i> Inscrição garantida! 💙🧡🚀</div>
-    <div class="card">
-        <div id="loading" style="padding: 60px; text-align: center; color: var(--roxo); font-weight: 600;"><i class="fa-solid fa-circle-notch fa-spin fa-2x" style="margin-bottom: 15px;"></i><br>Carregando Evento...</div>
-        <div id="main-content" style="display:none;">
-            <div class="header">
-                <img src="https://i.ibb.co/7hcph2F/download.jpg" class="logo-nupi">
-                <div style="font-size: 0.75rem; opacity: 0.8; margin-bottom: 5px; text-transform: uppercase; font-weight: 700;">Formulário Oficial</div>
-                <h2 id="titulo-evento" style="line-height: 1.2;">---</h2>
-            </div>
-            <form id="form-nupi">
-                <div class="input-group"><label>Nome Completo</label><input type="text" id="nome" name="Nome" required placeholder="Digite seu nome"></div>
-                <div class="input-group"><label>E-mail</label><input type="email" id="email" name="Email" required placeholder="seu@email.com"></div>
-                <div class="input-group"><label>Instituição</label>
-                    <select id="inst" name="Instituicao" required><option value="" disabled selected>Selecione...</option><option value="UFPI">UFPI (Universidade Federal)</option><option value="IFPI">IFPI</option><option value="UESPI">UESPI</option><option value="Outra">Outra Faculdade</option></select>
-                </div>
-                <div class="input-group"><label>Período / Status</label>
-                    <select id="periodo" name="Periodo" required><option value="" disabled selected>Selecione...</option><option value="1º Período">1º Período</option><option value="2º Período">2º Período</option><option value="3º Período">3º Período</option><option value="4º Período">4º Período</option><option value="5º Período">5º Período</option><option value="6º Período">6º Período</option><option value="7º Período">7º Período</option><option value="8º Período">8º Período</option><option value="9º Período">9º Período</option><option value="10º Período ou +">10º Período ou +</option><option value="Concluinte / Formando">🎓 Concluinte / Formando</option><option value="Egresso / Pós">💼 Egresso / Pós-Grad</option></select>
-                </div>
-                <div class="input-group"><label>Curso</label><input type="text" id="curso" name="Curso" required placeholder="Ex: Eng. Produção"></div>
-                <input type="hidden" name="Evento" id="evento-hidden">
-                <button type="button" class="btn-confirm" onclick="abrirModal()">AVANÇAR <i class="fa-solid fa-arrow-right"></i></button>
-            </form>
-        </div>
-        <div id="tela-fechado">
-            <i class="fa-solid fa-lock icon-closed"></i>
-            <h2 style="color:var(--roxo); margin-bottom: 10px;">Inscrições Encerradas!</h2>
-            <p style="color: #64748b;">As vagas para este evento foram preenchidas. Fique ligado no <strong>@nupiepro</strong>! 💙🧡</p>
-        </div>
-    </div>
-    <a href="#" id="link-zap" class="zap-float" target="_blank"><img src="https://i.ibb.co/nq59JvjG/pngtree-whatsapp-icon-png-image-6315990.png" alt="WhatsApp"></a>
-    <div class="modal-overlay" id="modal">
-        <div class="modal-box">
-            <h3 style="color:var(--roxo)">Confira seus dados</h3>
-            <div class="data-review" id="review-content"></div>
-            <div class="modal-actions">
-                <button onclick="fecharModal()" style="flex:1; padding:12px; border:none; background:#f1f5f9; border-radius:12px; cursor:pointer; color:#64748b; font-weight:700;">Corrigir</button>
-                <button onclick="enviar()" id="btn-final" style="flex:1; padding:12px; border:none; background:var(--dinamica); color:white; border-radius:12px; cursor:pointer; font-weight:800;">CONFIRMAR! 🚀</button>
-            </div>
-        </div>
-    </div>
-    <script>
-        const API = "https://script.google.com/macros/s/AKfycbwdfIzySyFPoVtMhYhEqJMuZeciKj-BzCPXTsqdVpUUz_4FmSx2rlTzK_A0W4p7WkWTsA/exec";
-        window.onload = () => {
-            fetch(API).then(r => r.json()).then(data => {
-                document.getElementById('loading').style.display = 'none';
-                if(data.status === "FECHADO") {
-                    document.getElementById('tela-fechado').style.display = 'block';
-                } else {
-                    document.getElementById('main-content').style.display = 'block';
-                    document.getElementById('titulo-evento').innerText = data.evento;
-                    document.getElementById('evento-hidden').value = data.evento;
-                    document.documentElement.style.setProperty('--dinamica', data.cor);
-                    const msg = `Oi NUPI! Tenho dúvida sobre a inscrição do evento: ${data.evento}`;
-                    document.getElementById('link-zap').href = `https://wa.me/5586999976226?text=${encodeURIComponent(msg)}`;
-                }
-            }).catch(() => {});
-        };
-        function abrirModal() {
-            const form = document.getElementById('form-nupi');
-            if(!form.checkValidity()) { form.reportValidity(); return; }
-            document.getElementById('review-content').innerHTML = `<strong>Nome:</strong> ${document.getElementById('nome').value}<br><strong>Email:</strong> ${document.getElementById('email').value}<br><strong>Curso:</strong> ${document.getElementById('curso').value}<br><strong>Status:</strong> ${document.getElementById('periodo').value}`;
-            document.getElementById('modal').style.display = 'flex';
-        }
-        function fecharModal() { document.getElementById('modal').style.display = 'none'; }
-        async function enviar() {
-            const btn = document.getElementById('btn-final');
-            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Enviando...'; btn.disabled = true;
-            const fd = new URLSearchParams(new FormData(document.getElementById('form-nupi')));
-            try {
-                const res = await fetch(API, { method: 'POST', body: fd });
-                const json = await res.json();
-                if(json.result === "error") { alert(json.msg); location.reload(); }
-                else {
-                    fecharModal();
-                    document.getElementById('toast').classList.add('show');
-                    document.getElementById('form-nupi').reset();
-                    setTimeout(() => { document.getElementById('main-content').innerHTML = "<div style='text-align:center; padding:50px;'><h2>Sucesso! 💙🧡</h2><p>Inscrição realizada.</p></div>"; }, 2000);
-                }
-            } catch(e) { alert("Erro de conexão."); btn.innerText = "CONFIRMAR! 🚀"; btn.disabled = false; }
-        }
-    </script>
-</body>
-</html>
+<div id="loading"><div class="spinner"></div><p>Carregando...</p></div>
+<div class="card" id="card-main" style="display:none"><div class="header"><img src="https://i.ibb.co/FkYzNVcT/download.jpg"><h2 id="ev-titulo">---</h2><p>Núcleo Piauiense de Estudantes de Engenharia de Produção</p></div><div class="info-box" id="info-area" style="display:none"><div id="ev-desc" class="desc-text"></div><div class="info-item"><i class="fa-solid fa-calendar-day" style="color:var(--accent)"></i> <span id="ev-data"></span></div><div class="info-item"><i class="fa-solid fa-clock" style="color:var(--accent)"></i> <span id="ev-hora"></span></div><div class="info-item"><i class="fa-solid fa-microphone" style="color:var(--accent)"></i> <span id="ev-palestrante"></span></div><div class="info-item"><i class="fa-solid fa-video" style="color:var(--accent)"></i> <span id="ev-formato"></span></div></div><form id="form"><div class="field"><label>Nome Completo *</label><input type="text" name="Nome" required></div><div class="field"><label>E-mail *</label><input type="email" id="email1" name="Email" required autocomplete="off"></div><div class="field"><label>Confirme seu E-mail *</label><input type="email" id="email2" required autocomplete="off" onpaste="return false"></div><div class="field"><label>Instituição de Ensino *</label><select id="sel-inst" onchange="toggle('inst')" required><option value="" disabled selected>Selecione...</option><option>UFPI</option><option>FACID</option><option>UNIFSA</option><option>Outra</option></select><input type="text" id="out-inst" class="other-input" placeholder="Digite sua Instituição"><input type="hidden" name="Instituicao" id="final-inst"></div><div class="field"><label>Curso *</label><select id="sel-curso" onchange="toggle('curso')" required><option value="" disabled selected>Selecione...</option><option>Engenharia de Produção</option><option>Engenharia Mecânica</option><option>Engenharia Elétrica</option><option>Engenharia Civil</option><option>Outro</option></select><input type="text" id="out-curso" class="other-input" placeholder="Digite seu Curso"><input type="hidden" name="Curso" id="final-curso"></div><div class="field"><label>Período *</label><select name="Periodo" required><option value="" disabled selected>Selecione...</option><option>1º</option><option>2º</option><option>3º</option><option>4º</option><option>5º</option><option>6º</option><option>7º</option><option>8º</option><option>9º</option><option>10º</option><option>Concluinte / Formando</option><option>Egresso / Pós</option></select></div><div class="field"><label>Como ficou sabendo? *</label><select id="sel-origem" onchange="toggle('origem')" required><option value="" disabled selected>Selecione...</option><option>WhatsApp</option><option>Indicação</option><option>Instagram</option><option>Outra</option></select><input type="text" id="out-origem" class="other-input" placeholder="Digite onde soube"><input type="hidden" name="Origem" id="final-origem"></div><div class="field"><label>Dúvida específica? (Opcional)</label><textarea name="Duvida" rows="3"></textarea></div><input type="hidden" name="Evento" id="ev-hidden"><button type="button" class="btn" onclick="enviar()">CONFIRMAR INSCRIÇÃO <i class="fa-solid fa-arrow-right"></i></button></form></div>
+<div class="card" id="tela-msg" style="display:none;text-align:center;padding:60px 40px"><i id="icon-msg" class="fa-solid" style="font-size:5rem;margin-bottom:25px"></i><h2 id="tit-msg" style="color:var(--main);margin-bottom:15px"></h2><p id="txt-msg" style="color:#64748b;line-height:1.6"></p></div>
+<div class="page-footer">NUPIEEPRO 2026 💙🧡</div>
+<script>
+// --- AQUI ESTÁ A SUA URL NOVA ---
+const API = "https://script.google.com/macros/s/AKfycbyHQG1P43Johs9NvxkaoKNELhsXagVmCammU2kCLmibsQriH7OP863nUZssCl3CNOLkoQ/exec";
+
+function toggle(t){const s=document.getElementById('sel-'+t),o=document.getElementById('out-'+t),f=document.getElementById('final-'+t);if(s.value.includes('Outr')||s.value.includes('Outra')){o.style.display='block';o.required=true;f.value='';o.focus()}else{o.style.display='none';o.required=false;f.value=s.value}}
+['inst','curso','origem'].forEach(t=>{document.getElementById('out-'+t).addEventListener('input',function(){document.getElementById('final-'+t).value=this.value})});
+window.onload=async()=>{try{const r=await fetch(API).then(res=>res.json());document.getElementById('loading').style.display='none';if(r.manutencao||r.status==="FECHADO"){msg('lock','#cbd5e1','Inscrições Encerradas','As vagas foram preenchidas ou não há evento ativo.')}else{document.getElementById('card-main').style.display='block';document.getElementById('ev-titulo').innerText=r.nome;document.getElementById('ev-hidden').value=r.nome;if(r.descricao){document.getElementById('info-area').style.display='block';document.getElementById('ev-desc').innerHTML=r.descricao;document.getElementById('ev-data').innerText=r.data;document.getElementById('ev-hora').innerText=r.horario;document.getElementById('ev-palestrante').innerText=r.palestrante;document.getElementById('ev-formato').innerText=r.formato}}}catch(e){msg('wifi','#cbd5e1','Erro de Conexão','Recarregue a página.')}};
+async function enviar(){const f=document.getElementById('form');if(document.getElementById('email1').value.toLowerCase()!==document.getElementById('email2').value.toLowerCase()){return Swal.fire('Erro','E-mails não conferem.','error')}if(!f.checkValidity()){f.reportValidity();return}const b=document.querySelector('.btn');b.innerHTML='PROCESSANDO...';b.disabled=true;try{const r=await fetch(API,{method:'POST',body:new URLSearchParams(new FormData(f))}).then(res=>res.json());if(r.result==='success'){document.getElementById('card-main').style.display='none';msg('circle-check','#10b981','Inscrição Confirmada!','Sua vaga está garantida. Enviamos um e-mail. 💙🧡')}else{Swal.fire('Atenção',r.msg,'warning');b.innerHTML='TENTAR NOVAMENTE';b.disabled=false}}catch(e){Swal.fire('Erro','Falha na conexão.','error');b.disabled=false;b.innerHTML='CONFIRMAR INSCRIÇÃO'}}
+function msg(i,c,t,d){document.getElementById('tela-msg').style.display='block';document.getElementById('card-main').style.display='none';document.getElementById('icon-msg').className='fa-solid fa-'+i;document.getElementById('icon-msg').style.color=c;document.getElementById('tit-msg').innerText=t;document.getElementById('txt-msg').innerHTML=d}
+</script></body></html>
